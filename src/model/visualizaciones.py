@@ -44,11 +44,12 @@ def histogram_metric(p_data, p_metric):
     fig = make_subplots(rows=2, cols=1,
                         specs=[[{"type": "xy"}], [{"type": "domain"}]],
                         subplot_titles=(
-                                "Histógrama",
-                                "Datos estadisticos"),
+                                "Histograma",
+                                "Datos estadísticos"),
                        vertical_spacing=0.3)
 
     color = 'rgb(230, 120, 100)' if p_metric=='Estres' else 'rgb(200, 120, 200)'
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
 
     # Histograma
     fig.add_trace(go.Histogram(x=data,
@@ -65,11 +66,11 @@ def histogram_metric(p_data, p_metric):
     color_b = 'rgb(230, 190, 180)' if p_metric=='Estres' else 'rgb(220, 180, 200)'
 
     fig.add_trace(go.Table(name='Descripcion',
-                header=dict(values= [' ', p_metric],
+                header=dict(values=[' ', titulo],
                             fill_color=color_h,
                             align='center',
-                            font_color = 'White',
-                            font_size = 14
+                            font_color='White',
+                            font_size=14
                             ),
                 cells=dict(values=[t_descriptive.index.tolist(), t_descriptive],
                            fill_color =color_b)
@@ -77,7 +78,7 @@ def histogram_metric(p_data, p_metric):
                   row=2, col=1)
 
     # Axis title
-    fig['layout']['xaxis']['title']='Nivel de '+p_metric
+    fig['layout']['xaxis']['title']='Nivel de '+ titulo
     fig['layout']['yaxis']['title']='Frecuencia'
     
     fig.update_layout(
@@ -90,7 +91,7 @@ def histogram_metric(p_data, p_metric):
 # -- ------------------------------------------------------------------------------------ -- #
 # -- Function: Mapa
 # -- ------------------------------------------------------------------------------------ -- #
-def map_metric(p_df_data, metric, color):
+def map_metric(p_df_data, p_metric, color):
     """
     Visualizacion de mapa por metrica
 
@@ -112,17 +113,17 @@ def map_metric(p_df_data, metric, color):
     color = "Reds"
 
     """
-    with open(db + 'CP.json') as f:
+    with open(db + 'CP_2.json') as f:
         j_file = geojson.load(f)
     fig = px.choropleth_mapbox(
         p_df_data,
         geojson=j_file,
         locations='CP',
-        color=metric,
+        color=p_metric,
         color_continuous_scale=color,
         range_color=(
-            min(p_df_data[metric]),
-            max(p_df_data[metric])
+            min(p_df_data[p_metric]),
+            max(p_df_data[p_metric])
         ),
         mapbox_style="carto-positron",
         zoom=10,
@@ -132,11 +133,14 @@ def map_metric(p_df_data, metric, color):
         },
         opacity=0.5,
         labels={
-            metric: 'Nivel de ' + metric
+            p_metric: 'Nivel de ' + p_metric
         }
     )
+    # titulos
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig.update_layout(
-        title_text=metric+ ' de la ZMG por código postal',
+        title_text=titulo+ ' de la ZMG por código postal',
         margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -241,8 +245,10 @@ def velocimeter_size(p_df_data, p_metric, p_metric_table):
         }
     ))
 
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig.update_layout(
-        title=p_metric + " medio de los tamaños de empresas",
+        title=titulo + " medio de los tamaños de empresas",
         grid={'rows': 2, 'columns': 2, 'pattern': "independent"},
         template={
             'data': {
@@ -314,8 +320,11 @@ def bars_city(p_df_data, p_metric, p_metric_table):
             }
         }
     )
+    # Tilde en estres
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig.update_layout(
-        title=p_metric + " medio por Municipio de la ZMG",
+        title=titulo + " medio por Municipio de la ZMG",
         xaxis_title="Municipios",
         yaxis_title=p_metric,
         plot_bgcolor="#F9F9F9",
@@ -383,6 +392,9 @@ def table_giro(p_df_data, p_metric, p_metric_table):
     color_h = 'rgb(160, 85, 70)' if p_metric == 'Estres' else 'rgb(80, 10, 90)'
     color_b = 'rgb(230, 190, 180)' if p_metric == 'Estres' else 'rgb(220, 180, 200)'
 
+    # Titulo con tilde
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig = go.Figure(data=[
         go.Table(
             name=p_metric,
@@ -402,8 +414,9 @@ def table_giro(p_df_data, p_metric, p_metric_table):
             )
         )
     ])
+
     fig.update_layout(
-        title="Datos para el cálculo de la métrica: "+p_metric,
+        title="Datos para el cálculo de la métrica: "+titulo,
         margin={"r": 10, "t": 40, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
@@ -671,8 +684,8 @@ def add_porcentual(p_df_predicciones):
     p_df = p_df_predicciones.copy()
 
     # Agregar columna de cambio porcentual
-    p_df['C_Porcentual'] = round(
-        p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1, 4)
+    p_df['C_Porcentual'] = round((
+        p_df['Precio para Nov 2020'] / p_df['Ultimo precio'] - 1)*100, 4)
 
     # Reiniciar indices, sin multi-index
     p_df.reset_index(level=1, inplace=True)
@@ -682,10 +695,10 @@ def add_porcentual(p_df_predicciones):
     p_df = p_df.rename(columns={'index': 'Grupo', 'level_1': 'Clase'})
 
     # Calcular para colorear
-    color = ['Precios que bajaran más de 1%' if p_df['C_Porcentual'][i] <= -.01 else (
+    color = ['Precios que bajaran más de 1%' if p_df['C_Porcentual'][i] <= -1 else (
         'Precios que se mantendrán con una variación menor a 1%' if p_df[
-            'C_Porcentual'][i] <= .01 and p_df[
-                'C_Porcentual'][i] > -.01 else 'Precios que aumentarán más de 1%'
+            'C_Porcentual'][i] <= 1 and p_df[
+                'C_Porcentual'][i] > -1 else 'Precios que aumentarán más de 1%'
     ) for i in range(len(p_df))]
 
     # Añadir columna de colores
@@ -930,9 +943,11 @@ def treemap_giro(p_df_data, p_metric, p_metric_table):
         parents=parents,
         marker_colorscale=color,
         textinfo="label+value"))
-        
+
+    titulo = 'Estrés' if p_metric == 'Estres' else 'Adaptabilidad'
+
     fig.update_layout(
-        title="Datos por mediana para la métrica de: " + p_metric + " (por sector)",
+        title="Datos por mediana para la métrica de: " + titulo + " (por sector)",
         margin={"r": 10, "t": 30, "l": 10, "b": 10},
         plot_bgcolor="#F9F9F9",
         paper_bgcolor="#F9F9F9"
