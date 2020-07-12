@@ -113,7 +113,7 @@ def map_metric(p_df_data, p_metric, color):
     color = "Reds"
 
     """
-    with open(db + 'CP_2.json') as f:
+    with open(db + 'CP_3.json') as f:
         j_file = geojson.load(f)
     fig = px.choropleth_mapbox(
         p_df_data,
