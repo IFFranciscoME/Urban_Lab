@@ -76,7 +76,7 @@ conditions_stress = {
 							p_gen*2: (12, 18),
 							p_gen*-1: (18, 52) # 82
 						},
-				'pago_creditos': {
+				'pago_créditos': {
 							0: [100, 101, 102],
 							p_gen*4: (-1, 6),
 							p_gen*3: (6, 12),
@@ -118,7 +118,7 @@ conditions_stress = {
 							p_gen*2: (12, 18),
 							p_gen*-1: (18, 52)
 						},
-				'duracion': {
+				'duración': {
 							0: [100, 101, 102],
 							p_esp*4: (-1, 6),
 							p_esp*3: (6, 12),
@@ -130,7 +130,7 @@ conditions_stress = {
 							1: ['Sí'],
 							0: ['No sé']
 						},
-				'credito': {
+				'crédito': {
 							0: ['No'],
 							2: ['Sí']
 						},
