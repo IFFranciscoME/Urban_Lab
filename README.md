@@ -8,7 +8,7 @@ Para instalar librerias use el comando:
 
 Para correr la aplicación use el comando:
 
-        python .\src\server.py
+        python .\src\wsgi.py
 
 Abra la aplicaccion en el puerto 5000
 
