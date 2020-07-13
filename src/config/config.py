@@ -1,23 +1,25 @@
 import os
 
-
-
 ## App settings
-name = "Urban_Lab"
+name = 'Urban Lab: Datos de ZMG'
 
 host ='0.0.0.0'
 
-port = int(os.environ.get("PORT", 5000))
+port = int(os.environ.get('PORT', 5000))
 
-debug = True
+debug = bool(os.environ.get('ENV', True))
 
-contacts = "https://www.linkedin.com/in/fernando-palafox-612301109/"
 
-code = "https://github.com/IFFranciscoME/Urban_Lab/"
-
-fontawesome = 'https://use.fontawesome.com/releases/v5.10.1/css/all.css'
-
+fontawesome = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css'
 ## File system
 root = os.path.dirname(os.path.dirname(__file__))
 
-##port= 5001
+#para linux
+db = root +'/db/'
+#para windows
+#db = root +'\\db\\'
+
+#para linux
+assets  = root+'/app/assets'
+#para windows
+#assets  = root+'\\app\\assets'

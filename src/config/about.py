@@ -1,1 +1,0 @@
-txt ='Tablero para ayudar a PYMES'
