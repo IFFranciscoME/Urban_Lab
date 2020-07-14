@@ -19,7 +19,7 @@ variables = {
     },
     'Precios': {
         'variables-header': 'Predicción de Precios',
-        'variables-body': 'Esta métrica se enfoca en la predicción de la variación de los precios de los insumos y algunos servicios en Guadalajara para los próximos 6 meses. Los insumos y servicios están organizados en 32 clases que a su vez forman parte de 14 grupos. Los colores que se presentan en la métrica tienen una dinámica de semáforo tomando como criterio el rojo siendo que los precios decrementen más de un 1%, el amarillo que no tengan un cambio muy significativo en el precio con una variación de -1% a 1% y el verde que tengan una variación al alza mayor a un 1%. Las grafica que se ve representada en pesos toma la mediana de los precios de los productos dentro de cada clase.'
+        'variables-body': 'Esta métrica se enfoca en la predicción de la variación de los precios de los insumos y algunos servicios en Guadalajara para los próximos 6 meses. Los insumos y servicios están organizados en 32 clases que a su vez forman parte de 14 grupos. Los colores que se presentan en la métrica tienen una dinámica de semáforo tomando como criterio el verde siendo que los precios decrementen más de un 1%, el amarillo que no tengan un cambio muy significativo en el precio con una variación de -1% a 1% y el rojo que tengan una variación al alza mayor a un 1%. Las grafica que se ve representada en pesos toma la mediana de los precios de los productos dentro de cada clase.'
     }
 }
 
