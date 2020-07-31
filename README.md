@@ -1,5 +1,5 @@
 # Urban_Lab
-Laboratorio de econometría espacial urbana - PAP4J05
+Laboratorio de econometría espacial urbana - PAP4J05.
 
 ## Uso
 Para instalar librerias use el comando:
