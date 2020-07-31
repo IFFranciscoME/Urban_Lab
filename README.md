@@ -28,5 +28,10 @@ Abra la aplicaccion en el puerto 5000
 | P.2020  | OSCAR ALFONSO FLORES OROZCO    |  |
 | P.2020  | JOB RAMIREZ CAMBERO            |  |
 
+## Profesor
+Francisco ME (Juan Francisco Muñoz Elguezabal) - franciscome@iteso.mx
+- Profesor Asociado ITESO.
+- Departamento de Matemáticas y Física.
+
 ## Información de contacto
 Para mayor información, contribuciones y casos de uso enviar correo a: franciscome@iteso.mx
