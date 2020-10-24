@@ -1,4 +1,3 @@
-
 # -- --------------------------------------------------------------------------------------------------- -- #
 # -- project: Urban Lab / Laboratorio de econometría espacial urbana - PAP4J05                           -- #
 # -- script: wsgi.py : script para inicializar el dashboard                                              -- #

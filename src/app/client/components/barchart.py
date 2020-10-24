@@ -57,11 +57,18 @@ dropdown_barchart = dcc.Dropdown(
     className='d-none',
 )
 
+
 tabs_barchart = dcc.Tabs(id='tabs_fig', value='0', children=[
     dcc.Tab(label='Distribución por Municipio', value='0'),
     dcc.Tab(label='Tamaño de Empresas ZMG', value='1'),
     dcc.Tab(label='Histograma de Métrica', value='2'),
 ])
+
+# tabs_barchart_filter = dcc.Tabs(id='tabs_fig_filter', value='0', children=[
+#     dcc.Tab(label='Aumento de costo de insumos', value='0'),
+#     dcc.Tab(label='Aumento de precios', value='1'),
+#     dcc.Tab(label='Solicitud de credito', value='2'),
+# ])
 
 btn_barchart = dbc.Button([
     'Descripción ',
@@ -186,3 +193,4 @@ def toggle_modal_barchart(n1, n2, is_open):
         return not is_open
 
     return is_open
+

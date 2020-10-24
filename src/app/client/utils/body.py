@@ -24,7 +24,7 @@ body = html.Div([
         html.Div([
                 dbc.Card(
                     [
-                       map_graph
+                        map_graph
                     ],
                     body=True,
                     className='card h-100 ',

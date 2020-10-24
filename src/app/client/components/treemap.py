@@ -55,7 +55,6 @@ treemap = dcc.Graph(id='treemap', figure={}, className='')
     ]
 )
 def update_graph(option_map, option_data):
-
     # Visualizations
     if option_map == 'Precios':
         fig = figures['Precios'][option_data]()

@@ -20,15 +20,17 @@ variables = {
     'Precios': {
         'variables-header': 'Predicción de Precios',
         'variables-body': 'Esta métrica se enfoca en la predicción de la variación de los precios de los insumos y algunos servicios en Guadalajara para los próximos 6 meses. Los insumos y servicios están organizados en 32 clases que a su vez forman parte de 14 grupos. Los colores que se presentan en la métrica tienen una dinámica de semáforo tomando como criterio el verde siendo que los precios decrementen más de un 1%, el amarillo que no tengan un cambio muy significativo en el precio con una variación de -1% a 1% y el rojo que tengan una variación al alza mayor a un 1%. Las grafica que se ve representada en pesos toma la mediana de los precios de los productos dentro de cada clase.'
-    }
+    },
+
 }
 
 txt_variables = html.Div([
     html.H5(children=[], id='variables-header', className='text-center text-justify'),
     html.P(children=[], id='variables-body', className='text-justify')
-],className='text-justify')
+], className='text-justify')
 
 map_graph = dcc.Graph(id='map', figure={}, className='pb-3 pr-3 pl-3 mt-auto mb-auto')
+
 
 # Connect the Plotly graphs with Dash Components
 @app.callback(
@@ -48,7 +50,7 @@ map_graph = dcc.Graph(id='map', figure={}, className='pb-3 pr-3 pl-3 mt-auto mb-
     [Input(component_id='slct_map', component_property='value')]
 )
 def update_graph_bar(option_map):
-    #container = 'La variable escogida por el usuario es: {}'.format(option_map)
+    # container = 'La variable escogida por el usuario es: {}'.format(option_map)
     if option_map == 'Precios':
         fig = table_prices(semaforo)
     else:
@@ -60,3 +62,46 @@ def update_graph_bar(option_map):
     body = variables[option_map]['variables-body']
 
     return header, body, fig
+
+# @app.callback(
+#     [
+#         Output(
+#             component_id='sector',
+#             component_property='children'
+#         )
+#     ],
+#     [Input(component_id='slct_map', component_property='value')]
+# )
+
+# def update_graph_bar(option_map):
+#     if option_map == 'Filtro':
+#         header = variables[option_map]['variables-header']
+#         body = variables[option_map]['variables-body']
+#         filterFunction = html.Div([
+#         html.H5(id="sectortxt", className='text-justify'),
+#         dcc.Dropdown(
+#             id='sectorSlct',
+#             options=[
+#                 {'label':'Manufactura',
+#                 'value': 'Manufactura'},
+#                 {'label': 'Servicios',
+#                 'value': 'Servicios'},
+#                 {'label':'Construcción',
+#                 'value': 'Construcción'},
+#                 {'label':'Comercio',
+#                 'value':'Comercio'},
+#             ],
+#             multi=False,
+#             clearable=False,
+#             value='Manufactura',
+#             style={
+#             'color': '#272E42',
+#             'background-color': '#D1D8EE',
+#             'fontSize': '20px'
+#             },
+#             className='w-100 h-100 m-auto'
+#         )
+#         ])
+#         return filterFunction
+#     else:
+#         pass

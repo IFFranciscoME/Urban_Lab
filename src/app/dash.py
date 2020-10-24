@@ -22,8 +22,20 @@ app = dash.Dash(name=config.name,
                 external_stylesheets=[dbc.themes.BOOTSTRAP, config.fontawesome], 
                 suppress_callback_exceptions = True)
 
+app_filter = dash.Dash(name=config.name,
+                server=server,
+                routes_pathname_prefix='/filterEconomic/',
+                assets_folder=config.assets,
+                external_stylesheets=[dbc.themes.BOOTSTRAP, config.fontawesome],
+                suppress_callback_exceptions = True)
+
 from app.client.layouts.layout import layout
+from app.client.layouts.layout import layout_filter
 
 app.title = config.name
 
 app.layout = layout
+
+app_filter.title = config.name
+
+app_filter.layout = layout_filter
