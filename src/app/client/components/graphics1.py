@@ -56,8 +56,19 @@ map_graphBars = dcc.Graph(id='mapBar', figure={}, className='mt-auto mb-auto')
     Output(
         component_id='mapBar',
         component_property='figure'
-    )
-
+    ),
+    Output(
+        component_id='sectorSlct',
+        component_property='disabled'
+    ),
+    Output(
+        component_id='municipioSlct',
+        component_property='disabled'
+    ),
+    Output(
+        component_id='giroSlct',
+        component_property='disabled'
+    ),
     ],
     [
     Input(
@@ -80,14 +91,47 @@ map_graphBars = dcc.Graph(id='mapBar', figure={}, className='mt-auto mb-auto')
     Input(
         component_id='giroSlct',
         component_property='value'
+    ),
+    Input(
+        component_id='sectorcheck',
+        component_property='value'
+    ),
+    Input(
+        component_id='girocheck',
+        component_property='value'
+    ),
+    Input(
+        component_id='municipiocheck',
+        component_property='value'
     )
     ]
 )
-def setGraphsFilter(tabs1, tabs2, sector, municipio, giro):
+def setGraphsFilter(tabs1, tabs2, sector, municipio, giro, block_sec, block_giro, block_mun):
+    if block_sec == ['X']:
+        sector = 'vacio'
+        dis_sector='True'
+    else:
+        dis_sector = None
+
+    if block_mun == ['X']:
+        municipio = 'vacio'
+        dis_municipio='True'
+    else:
+        dis_municipio = None
+
+    if block_giro == ['X']:
+        giro = 'vacio'
+        dis_giro ='True'
+    else:
+        dis_giro=None
+
     map1 = mapoptions1[tabs1](sector, municipio, giro)
     map2 = mapoptions2[tabs2](sector, municipio, giro)
     bars = porcentajeGraphic(sector, municipio, giro)
-    return map1, map2, bars
+    #print(map1)
+    #print(map2)
+    #print(bars)
+    return map1, map2, bars, dis_sector, dis_municipio, dis_giro
 
 
 

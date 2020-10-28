@@ -21,9 +21,6 @@ header_filter = html.Header(
                                 className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block text-center text-justify' )
                         ], className='d-flex flex-row')
                     ], className='col-3 col-sm-3 col-md-8 col-lg-8 col-xl-8 mx-auto'),
-                    html.Div([
-
-                    ], className='col-9 col-sm-9 col-md-4 col-lg-4 col-xl-4 mx-auto')
                 ], 
                 className='row w-100 m-0 p-0 d-flex justify-content-center align-items-center',
                 style={'height':'80px'})

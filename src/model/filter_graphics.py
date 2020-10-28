@@ -15,7 +15,8 @@ df_c = data_c.filter(items = ['Sector', 'Municipio', 'Giro','ventas_porcentaje',
 
 
 def optionslct(data):
-    return df_c[data].unique()
+    df = df_c[data].unique()
+    return np.sort(df)
 
 
 def filterdf(user_input1, user_input2, user_input3):
@@ -79,11 +80,34 @@ def filterdata(user_input1, user_input2, user_input3):
 def despidosGraphic(sector, municipio, giro):
     df = filterdf(sector, municipio, giro) # codigo que filtra --- este es para las graficas
     data = filterdata(sector, municipio, giro)# codigo que filtra ---- este es para las metricas
+    if df.empty:
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "No coinciden los parámetros",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 28
+                        }
+                    }
+                ]
+            }
+        }
     si=0 
     no = 0 
     np = 0 
     nc=0 
     npd=0
+
     for i in range(0, len(data)):
         if df['despidos'][i] == 'No':
             no += 1
@@ -97,7 +121,13 @@ def despidosGraphic(sector, municipio, giro):
             si += 1
     names = ['Sí','No','No, pero lo está considerando','No cuenta con personal','No, pero lo va a hacer en los próximos días']
     result = [si, no, np, nc, npd]
-    fig = px.pie(values = result, names=names, hole = 0.4, title = 'Despidos')
+
+    if df.empty:
+        print("La tabla esta vacia")
+        fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
+        return fig
+
+    fig = px.pie(values = result, names=names, hole = 0.4, title = 'Porcentaje de empresas que han despedido personal')
 
     return fig
 
@@ -105,10 +135,38 @@ def creditoGraphic(sector, municipio, giro):
     user_input = sector
     df = filterdf(sector, municipio, giro)# codigo que filtra --- este es para las graficas
     data = filterdata(sector, municipio, giro)# codigo que filtra ---- este es para las metricas
+    if df.empty:
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "No coinciden los parámetros",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 28
+                        }
+                    }
+                ]
+            }
+        }
     si=0
     no = 0
     cons = 0
     ya=0
+
+    if len(data) == None:
+        print("Esta vacio")
+        fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
+        return fig
+
     for i in range(0, len(data)):
         if df['credito_solicitud'][i] == 'Sí':
             si += 1
@@ -119,13 +177,36 @@ def creditoGraphic(sector, municipio, giro):
         if df['credito_solicitud'][i] == 'Ya lo hice':
             ya += 1
 
-    fig = px.pie(values = [si, no,cons,ya], names=['Sí','No','Lo estoy considerando','Ya lo hice'], hole = 0.4, title = 'Solicitud de Crédito')
+
+    fig = px.pie(values = [si, no,cons,ya], names=['Sí','No','Lo estoy considerando','Ya lo hice'], hole = 0.4, title = 'Porcentaje de empresas que tomarían algún tipo de crédito para tener mayor liquidez')
 
     return fig   
 
 def insumosGraphic(sector, municipio, giro):
     df = filterdf(sector, municipio, giro) # codigo que filtra --- este es para las graficas
     data = filterdata(sector, municipio, giro)# codigo que filtra ---- este es para las metricas
+    if df.empty:
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "No coinciden los parámetros",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 28
+                        }
+                    }
+                ]
+            }
+        }
     si=0
     no = 0
     nose=0
@@ -136,14 +217,40 @@ def insumosGraphic(sector, municipio, giro):
             no += 1
         if df['aumento_insumos'][i] == 'No sé':
             nose += 1
-            
-    fig = px.pie(values = [si, no, nose], names=['Sí','No','No sé'], hole = 0.4, title = 'Aumento de insumos')
+
+    if df.empty:
+        fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
+        return fig
+
+    fig = px.pie(values = [si, no, nose], names=['Sí','No','No sé'], hole = 0.4, title = 'Porcentaje de empresas que han observado aumentos en los costos de su operación')
 
     return fig       
 
 def preciosGraphic(sector, municipio, giro):
     df = filterdf(sector, municipio, giro) # codigo que filtra --- este es para las graficas
     data = filterdata(sector, municipio, giro)# codigo que filtra ---- este es para las metricas
+    if df.empty:
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "No coinciden los parámetros",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 28
+                        }
+                    }
+                ]
+            }
+        }
     si=0
     no = 0
     na=0
@@ -160,13 +267,39 @@ def preciosGraphic(sector, municipio, giro):
             nc += 1
         if df['aumento_precios'][i] == 'No, pero lo estoy considerando':
             cons += 1
-            
-    fig = px.pie(values = [si, no,na,nc,cons], names=['Sí','No','No aplica','No contestó','No, pero lo está considerando'], hole = 0.4, title = 'Aumento de precios')
+
+    if df.empty:
+        fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
+        return fig
+
+    fig = px.pie(values = [si, no,na,nc,cons], names=['Sí','No','No aplica','No contestó','No, pero lo está considerando'], hole = 0.4, title = 'Porcentaje de empresas que han tenido que subir precios para compensar mayores costos')
 
     return fig     
 
 def porcentajeGraphic(sector, municipio, giro):
     df = filterdf(sector, municipio, giro)# codigo que filtra --- este es para las graficas
+    if df.empty:
+        return {
+            "layout": {
+                "xaxis": {
+                    "visible": False
+                },
+                "yaxis": {
+                    "visible": False
+                },
+                "annotations": [
+                    {
+                        "text": "No coinciden los parámetros",
+                        "xref": "paper",
+                        "yref": "paper",
+                        "showarrow": False,
+                        "font": {
+                            "size": 28
+                        }
+                    }
+                ]
+            }
+        }
     ventas = list(df['ventas_porcentaje'])
     ventas =list(filter(lambda a: a != 997, ventas))
     ventas =list(filter(lambda a: a != 998, ventas))
@@ -178,6 +311,8 @@ def porcentajeGraphic(sector, municipio, giro):
     labels, values = zip(*f)
     indexes = np.arange(len(labels))
     width = 0.8
-    fig = px.bar(values, x=labels, y=values, title = 'Porcentaje de afectación de ventas')
+
+
+    fig = px.bar(values, x=labels, y=values, title = 'Reducción aproximada en ventas')
 
     return fig     
