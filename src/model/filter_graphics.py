@@ -14,9 +14,16 @@ df_c = data_c.filter(items = ['Sector', 'Municipio', 'Giro','ventas_porcentaje',
                           'aumento_precios'])
 
 
-def optionslct(data):
-    df = df_c[data].unique()
-    return np.sort(df)
+def optionslct(data, sector): #data = 'Giro'
+    if sector == None:
+        df = df_c[data]
+        return np.sort(pd.unique(df))
+    else:
+        df = []
+        for i in range(len(df_c[data])):
+            if df_c['Sector'][i]==sector:
+                df.append(df_c[data][i])
+        return np.sort(pd.unique(df))
 
 
 def filterdf(user_input1, user_input2, user_input3):
@@ -91,7 +98,7 @@ def despidosGraphic(sector, municipio, giro):
                 },
                 "annotations": [
                     {
-                        "text": "No coinciden los parámetros",
+                        "text": "No existe información con los filtros seleccionados",
                         "xref": "paper",
                         "yref": "paper",
                         "showarrow": False,
@@ -123,12 +130,11 @@ def despidosGraphic(sector, municipio, giro):
     result = [si, no, np, nc, npd]
 
     if df.empty:
-        print("La tabla esta vacia")
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
 
     fig = px.pie(values = result, names=names, hole = 0.4, title = 'Porcentaje de empresas que han despedido personal')
-
+    fig.update_layout(font=dict(size=10))
     return fig
 
 def creditoGraphic(sector, municipio, giro):
@@ -146,7 +152,7 @@ def creditoGraphic(sector, municipio, giro):
                 },
                 "annotations": [
                     {
-                        "text": "No coinciden los parámetros",
+                        "text": "No existe información con los filtros seleccionados",
                         "xref": "paper",
                         "yref": "paper",
                         "showarrow": False,
@@ -179,7 +185,7 @@ def creditoGraphic(sector, municipio, giro):
 
 
     fig = px.pie(values = [si, no,cons,ya], names=['Sí','No','Lo estoy considerando','Ya lo hice'], hole = 0.4, title = 'Porcentaje de empresas que tomarían algún tipo de crédito para tener mayor liquidez')
-
+    fig.update_layout(font=dict(size=10))
     return fig   
 
 def insumosGraphic(sector, municipio, giro):
@@ -196,7 +202,7 @@ def insumosGraphic(sector, municipio, giro):
                 },
                 "annotations": [
                     {
-                        "text": "No coinciden los parámetros",
+                        "text": "No existe información con los filtros seleccionados",
                         "xref": "paper",
                         "yref": "paper",
                         "showarrow": False,
@@ -223,7 +229,7 @@ def insumosGraphic(sector, municipio, giro):
         return fig
 
     fig = px.pie(values = [si, no, nose], names=['Sí','No','No sé'], hole = 0.4, title = 'Porcentaje de empresas que han observado aumentos en los costos de su operación')
-
+    fig.update_layout(font=dict(size=10))
     return fig       
 
 def preciosGraphic(sector, municipio, giro):
@@ -240,7 +246,7 @@ def preciosGraphic(sector, municipio, giro):
                 },
                 "annotations": [
                     {
-                        "text": "No coinciden los parámetros",
+                        "text": "No existe información con los filtros seleccionados",
                         "xref": "paper",
                         "yref": "paper",
                         "showarrow": False,
@@ -273,7 +279,7 @@ def preciosGraphic(sector, municipio, giro):
         return fig
 
     fig = px.pie(values = [si, no,na,nc,cons], names=['Sí','No','No aplica','No contestó','No, pero lo está considerando'], hole = 0.4, title = 'Porcentaje de empresas que han tenido que subir precios para compensar mayores costos')
-
+    fig.update_layout(font=dict(size=10))
     return fig     
 
 def porcentajeGraphic(sector, municipio, giro):
@@ -289,7 +295,7 @@ def porcentajeGraphic(sector, municipio, giro):
                 },
                 "annotations": [
                     {
-                        "text": "No coinciden los parámetros",
+                        "text": "No existe información con los filtros seleccionados",
                         "xref": "paper",
                         "yref": "paper",
                         "showarrow": False,
@@ -313,6 +319,6 @@ def porcentajeGraphic(sector, municipio, giro):
     width = 0.8
 
 
-    fig = px.bar(values, x=labels, y=values, title = 'Reducción aproximada en ventas')
-
+    fig = px.bar(values, x=labels, y=values, title = 'Reducción aproximada en ventas', labels={'x':"Porcentajes de ventas", 'y':"Cantidad de empresas"})
+    fig.update_layout(font=dict(size=10))
     return fig     

@@ -3,7 +3,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 from app.dash import app_filter
-from model.filter_graphics import despidosGraphic, creditoGraphic, insumosGraphic, preciosGraphic, porcentajeGraphic
+from model.filter_graphics import despidosGraphic, creditoGraphic, insumosGraphic, preciosGraphic, porcentajeGraphic, optionslct
 
 def precios(sector, municipio, giro):
     return preciosGraphic(sector, municipio, giro)
@@ -16,6 +16,8 @@ def credito(sector, municipio, giro):
 
 def despidos(sector, municipio, giro):
     return despidosGraphic(sector, municipio, giro)
+
+
 
 mapoptions1 = {
     '0': precios,
@@ -69,6 +71,14 @@ map_graphBars = dcc.Graph(id='mapBar', figure={}, className='mt-auto mb-auto')
         component_id='giroSlct',
         component_property='disabled'
     ),
+    Output(
+        component_id='municipioSlct',
+        component_property='options'
+    ),
+    Output(
+        component_id='giroSlct',
+        component_property='options'
+    )
     ],
     [
     Input(
@@ -107,9 +117,32 @@ map_graphBars = dcc.Graph(id='mapBar', figure={}, className='mt-auto mb-auto')
     ]
 )
 def setGraphsFilter(tabs1, tabs2, sector, municipio, giro, block_sec, block_giro, block_mun):
+    global options_giro, options_municipio
+    municipio_ops = optionslct('Municipio', sector)
+    giro_ops = optionslct('Giro', sector)
+
+    options_giro = [
+                    {'label': name,
+                    'value': name} for name in giro_ops
+                  ]
+    options_municipio = [
+                     {'label': name,
+                       'value': name} for name in municipio_ops
+                  ]
     if block_sec == ['X']:
         sector = 'vacio'
         dis_sector='True'
+        municipio_ops = optionslct('Municipio', None)
+        giro_ops = optionslct('Giro', None)
+
+        options_giro = [
+            {'label': name,
+             'value': name} for name in giro_ops
+        ]
+        options_municipio = [
+            {'label': name,
+             'value': name} for name in municipio_ops
+        ]
     else:
         dis_sector = None
 
@@ -125,13 +158,18 @@ def setGraphsFilter(tabs1, tabs2, sector, municipio, giro, block_sec, block_giro
     else:
         dis_giro=None
 
+
+
+
+
+
     map1 = mapoptions1[tabs1](sector, municipio, giro)
     map2 = mapoptions2[tabs2](sector, municipio, giro)
     bars = porcentajeGraphic(sector, municipio, giro)
     #print(map1)
     #print(map2)
     #print(bars)
-    return map1, map2, bars, dis_sector, dis_municipio, dis_giro
+    return map1, map2, bars, dis_sector, dis_municipio, dis_giro, options_municipio, options_giro
 
 
 

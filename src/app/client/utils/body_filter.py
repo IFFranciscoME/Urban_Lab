@@ -3,18 +3,17 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from app.client.components.graphics1 import tabs_barchart1, tabs_barchart2, map_graphP1, map_graphP2, map_graphBars
-from model.filter_graphics import optionslct
+
 #from model.filter_graphics import test
 
-municipio = optionslct('Municipio')
-giro = optionslct('Giro')
+
 
 body_filter = html.Div([
     html.Div([
         html.Div([
                 dbc.Card(
                     [
-                        html.H5(children='Filtros de situación económica de las pymes', id='variables-header', className='text-center text-justify'),
+                        html.H5(children='Filtros de situación económica de las PyMES', id='variables-header', className='text-center text-justify'),
                         html.P(children='La presente herramienta tiene como objetivo conocer la situación que viven actualmente las unidades económicas correspondientes a un sector, giro y/o municipio en específico a raíz del Covid-19 en términos económicos, con la finalidad de apoyar el usuario en el proceso de toma de decisiones.', id='variables-body', className='text-center')
                     ],
                     body=True,
@@ -54,7 +53,7 @@ body_filter = html.Div([
                             ),
                             dcc.Checklist(
                                 id="sectorcheck",
-                                options=[{"label": "No me interesa",
+                                options=[{"label": "Todos",
                                           "value": 'X'}]
                             )
                     ], className='w-200 h-100'),
@@ -62,10 +61,7 @@ body_filter = html.Div([
                             html.H5(children='Giro:', id="girotxt", className='text-justify'),
                             dcc.Dropdown(
                                 id='giroSlct',
-                                options=[
-                                    {'label': name,
-                                     'value': name} for name in giro
-                                ],
+                                options=[],
                                 multi=False,
                                 clearable=False,
                                 value="Restaurantes",
@@ -78,7 +74,7 @@ body_filter = html.Div([
                             ),
                             dcc.Checklist(
                                 id="girocheck",
-                                options=[{"label": "No me interesa",
+                                options=[{"label": "Todos",
                                           "value": 'X'}]
                             )
                         ], className='w-200 h-100'),
@@ -86,10 +82,7 @@ body_filter = html.Div([
                             html.H5(children='Municipio:', id="municipiotxt", className='text-justify'),
                             dcc.Dropdown(
                                 id='municipioSlct',
-                                options=[
-                                    {'label': name,
-                                     'value': name} for name in municipio
-                                ],
+                                options=[],
                                 multi=False,
                                 clearable=False,
                                 value="Guadalajara",
@@ -103,7 +96,7 @@ body_filter = html.Div([
                             ),
                             dcc.Checklist(
                                 id="municipiocheck",
-                                options=[{"label": "No me interesa",
+                                options=[{"label": "Todos",
                                           "value": 'X'}]
                             )
                         ], className='w-200 h-100')
