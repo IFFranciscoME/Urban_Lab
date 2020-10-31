@@ -17,7 +17,7 @@ body_filter = html.Div([
                         html.P(children='La presente herramienta tiene como objetivo conocer la situación que viven actualmente las unidades económicas correspondientes a un sector, giro y/o municipio en específico a raíz del Covid-19 en términos económicos, con la finalidad de apoyar el usuario en el proceso de toma de decisiones.', id='variables-body', className='text-center')
                     ],
                     body=True,
-                    className='card h-100 ',
+                    className='card h-100',
                     style={'backgroundColor': '#F9F9F9'})
                 ],
             className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3',

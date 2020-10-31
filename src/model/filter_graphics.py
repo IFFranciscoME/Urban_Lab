@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import geojson
 import pandas as pd
 import numpy as np
+import plotly.graph_objects as po
 from collections import Counter
 
 import dash_core_components as dcc
@@ -133,8 +134,10 @@ def despidosGraphic(sector, municipio, giro):
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
 
-    fig = px.pie(values = result, names=names, hole = 0.4, title = 'Porcentaje de empresas que han despedido personal')
-    fig.update_layout(font=dict(size=10))
+    fig = po.Figure(data=[po.Pie(labels=names, values=result, title='Despidos', hole=.4)])
+    colors = ['#FAEBD7', '#CDC0B0', '#FFE4C4', '#8B7D6B', '#DEB887']
+    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
+
     return fig
 
 def creditoGraphic(sector, municipio, giro):
@@ -183,9 +186,11 @@ def creditoGraphic(sector, municipio, giro):
         if df['credito_solicitud'][i] == 'Ya lo hice':
             ya += 1
 
-
-    fig = px.pie(values = [si, no,cons,ya], names=['Sí','No','Lo estoy considerando','Ya lo hice'], hole = 0.4, title = 'Porcentaje de empresas que tomarían algún tipo de crédito para tener mayor liquidez')
-    fig.update_layout(font=dict(size=10))
+    fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'Lo estoy considerando', 'Ya lo hice'],
+                                 values=[si, no, cons, ya], title='Solicitud de Crédito',
+                                 hole=.4)])
+    colors = ['#8FBC8F', '#228B22', '#C1FFC1', '#698B69']
+    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
     return fig   
 
 def insumosGraphic(sector, municipio, giro):
@@ -228,8 +233,11 @@ def insumosGraphic(sector, municipio, giro):
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
 
-    fig = px.pie(values = [si, no, nose], names=['Sí','No','No sé'], hole = 0.4, title = 'Porcentaje de empresas que han observado aumentos en los costos de su operación')
-    fig.update_layout(font=dict(size=10))
+    fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'No sé'],
+                                 values=[si, no, nose], title='Aumento Insumos',
+                                 hole=.4)])
+    colors = ['#8B7500', '#DAA520', '#FFEC8B']
+    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
     return fig       
 
 def preciosGraphic(sector, municipio, giro):
@@ -278,8 +286,11 @@ def preciosGraphic(sector, municipio, giro):
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
 
-    fig = px.pie(values = [si, no,na,nc,cons], names=['Sí','No','No aplica','No contestó','No, pero lo está considerando'], hole = 0.4, title = 'Porcentaje de empresas que han tenido que subir precios para compensar mayores costos')
-    fig.update_layout(font=dict(size=10))
+    fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'No aplica', 'No contestó', 'No, pero lo está considerando'],
+                                 values=[si, no, na, nc, cons], title='Aumento Precios',
+                                 hole=.4)])
+    colors = ['#FFA07A', '#FFB6C1', '#FA8072', 'cadetblue', '#E9967A']
+    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
     return fig     
 
 def porcentajeGraphic(sector, municipio, giro):
