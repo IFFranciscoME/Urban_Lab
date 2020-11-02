@@ -18,10 +18,12 @@ header = html.Header(
                                 className='mr-3'),
                             html.H2(
                                 name,
-                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block text-center text-justify')
+                                className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block text-center text-justify'),
+                            html.A(dbc.Button("Filtros", id="buttonfilter", className="mr-1", style={'background': '#317CF6', 'height': 40, 'margin-top': 10}), href="/filterEconomic")
                         ], className='d-flex flex-row')
                     ], className='col-3 col-sm-3 col-md-8 col-lg-8 col-xl-8 mx-auto'),
                     html.Div([
+
                         dcc.Dropdown(
                             id='slct_map',
                             options=[
