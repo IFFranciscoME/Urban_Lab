@@ -134,9 +134,10 @@ def despidosGraphic(sector, municipio, giro):
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
 
-    fig = po.Figure(data=[po.Pie(labels=names, values=result, title='Despidos', hole=.4)])
+    fig = po.Figure(data=[po.Pie(labels=names, values=result, hole=.4)])
     colors = ['#FAEBD7', '#CDC0B0', '#FFE4C4', '#8B7D6B', '#DEB887']
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
+    fig.update_layout(title_text="Porcentaje de empresas que han despedido personal", font=dict(size=10))
 
     return fig
 
@@ -187,10 +188,11 @@ def creditoGraphic(sector, municipio, giro):
             ya += 1
 
     fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'Lo estoy considerando', 'Ya lo hice'],
-                                 values=[si, no, cons, ya], title='Solicitud de Crédito',
+                                 values=[si, no, cons, ya],
                                  hole=.4)])
     colors = ['#8FBC8F', '#228B22', '#C1FFC1', '#698B69']
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
+    fig.update_layout(title_text="Porcentaje de empresas que tomarían algún tipo de crédito para tener mayor liquidez", font=dict(size=10))
     return fig   
 
 def insumosGraphic(sector, municipio, giro):
@@ -234,10 +236,11 @@ def insumosGraphic(sector, municipio, giro):
         return fig
 
     fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'No sé'],
-                                 values=[si, no, nose], title='Aumento Insumos',
+                                 values=[si, no, nose],
                                  hole=.4)])
     colors = ['#8B7500', '#DAA520', '#FFEC8B']
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
+    fig.update_layout(title_text="Porcentaje de empresas que han observado aumentos en los costos de su operación", font=dict(size=10))
     return fig       
 
 def preciosGraphic(sector, municipio, giro):
@@ -287,10 +290,11 @@ def preciosGraphic(sector, municipio, giro):
         return fig
 
     fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'No aplica', 'No contestó', 'No, pero lo está considerando'],
-                                 values=[si, no, na, nc, cons], title='Aumento Precios',
+                                 values=[si, no, na, nc, cons],
                                  hole=.4)])
     colors = ['#FFA07A', '#FFB6C1', '#FA8072', 'cadetblue', '#E9967A']
     fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
+    fig.update_layout(title_text="Porcentaje de empresas que han tenido que subir precios para compensar mayores costos", font=dict(size=10))
     return fig     
 
 def porcentajeGraphic(sector, municipio, giro):
