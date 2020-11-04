@@ -322,18 +322,24 @@ def porcentajeGraphic(sector, municipio, giro):
             }
         }
     ventas = list(df['ventas_porcentaje'])
-    ventas =list(filter(lambda a: a != 997, ventas))
-    ventas =list(filter(lambda a: a != 998, ventas))
-    ventas =list(filter(lambda a: a != 999, ventas))
+    ventas = list(filter(lambda a: a != 997, ventas))
+    ventas = list(filter(lambda a: a != 998, ventas))
+    ventas = list(filter(lambda a: a != 999, ventas))
 
     a = Counter(ventas)
-    f =sorted(list(a.items()))
+    f = sorted(list(a.items()))
 
-    labels, values = zip(*f)
-    indexes = np.arange(len(labels))
-    width = 0.8
+    arange = {'0-20%': np.sum([f[i][1] for i in range(len(f)) if f[i][0] <= 20]),
+              '21-40%': np.sum([f[i][1] for i in range(len(f)) if 20 < f[i][0] <= 40]),
+              '41-60%': np.sum([f[i][1] for i in range(len(f)) if 40 < f[i][0] <= 60]),
+              '61-80%': np.sum([f[i][1] for i in range(len(f)) if 60 < f[i][0] <= 80]),
+              '80-100%': np.sum([f[i][1] for i in range(len(f)) if 80 < f[i][0] <= 100])}
 
+    labels = list(arange.keys())
+    values = list(arange.values())
 
-    fig = px.bar(values, x=labels, y=values, title = 'Reducción aproximada en ventas', labels={'x':"Porcentajes de ventas", 'y':"Cantidad de empresas"})
+    fig = po.Figure([po.Bar(x=labels, y=values, marker_color='rgb(55, 83, 109)')])
+    fig.update_layout(title_text='Porcentaje de reducción de ventas', xaxis=dict(title='Porcentaje de reducción'),
+                      yaxis=dict(title='Cantidad de empresas'))
     fig.update_layout(font=dict(size=10))
     return fig     
