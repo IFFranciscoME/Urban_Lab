@@ -18,6 +18,7 @@ xlrd = "*"
 statistics = "*"
 sklearn = "*"
 statsmodels = "*"
+seaborn = "*"
 
 [requires]
 python_version = "3.7"
