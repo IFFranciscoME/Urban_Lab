@@ -2,8 +2,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
-from app.dash import app_filter
+from app.dash import app
 from model.filter_graphics import despidosGraphic, creditoGraphic, insumosGraphic, preciosGraphic, porcentajeGraphic, optionslct
+
 
 def precios(sector, municipio, giro):
     return preciosGraphic(sector, municipio, giro)
@@ -43,9 +44,82 @@ map_graphP1 = dcc.Graph(id='mapP1', figure={}, className='mt-auto mb-auto')
 map_graphP2 = dcc.Graph(id='mapP2', figure={}, className='mt-auto mb-auto')
 map_graphBars = dcc.Graph(id='mapBar', figure={}, className='mt-auto mb-auto')
 
+modal_questions = dbc.Modal(
+        [
+        dbc.ModalHeader(
+            children=[
+                html.H1("Bienvenido a la herramienta de levantamiento de datos"),
+                html.P("Apoyanos contestando las siguientes preguntas, con el fin de agregar información a nuestra bas de datos")
+            ],
+            className='text-center text-justify'
+        ),
+        dbc.ModalBody(
+            children=[
+                html.Form([
+                    html.P(children=[
+                        "Seleccione el sector en el que opera su empresa:",
+                        dcc.Dropdown(options=[
+                            {'label': 'Manufactura', 'value': 'Manufactura'},
+                            {'label': 'Comercio', 'value': 'Comercio'},
+                            {'label': 'Servicio', 'value': 'Servicio'},
+                            {'label': 'Construcción', 'value': 'Construcción'},
+                        ],
+                            )
+                    ]),
+                    html.P(children=[
+                        "¿Cuál ha sido el comportamiento de sus ventas del trimestre actual respecto al anterior?",
+                        dcc.Dropdown(options=[
+                            {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
+                            {'label': 'Se han reducido', 'value': 'Se han reducido'},
+                            {'label': 'Se han aumentado', 'value': 'Se han aumentado'}
+                        ],
+                            )
+                    ]),
+                    html.P(children=[
+                        "¿Cuál ha sido el comportamiento de sus  costos operativos?",
+                        dcc.Dropdown(options=[
+                            {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
+                            {'label': 'Se han reducido', 'value': 'Se han reducido'},
+                            {'label': 'Se han aumentado', 'value': 'Se han aumentado'}
+                        ],
+                            )
+                    ]),
+                    html.P(children=[
+                        "En el supuesto de no generar ventas en el futuro, ¿Cuántas semanas soportarían sus fondos para pagar todos sus gastos?",
+                        dcc.RadioItems(options=[
+                            {'label': '0 a 6 semanas', 'value': '1'},
+                            {'label': '6 a 12 semanas', 'value': '1'},
+                            {'label': '12 a 18 semanas', 'value': '2'},
+                            {'label': '18 a 24 semanas o más', 'value': '2'}
+                        ],
+                            )
+                    ]),
+                    html.P(children=[
+                        "Indique el porcentaje aproximado de aumento o reducción en ventas del trimestre actual respecto al anterior:",
+                        dcc.Slider(min=0, max=100, step=1, value=100)
+                    ])
+
+                ])
+                ],
+            className='text-center text-justify'
+        ),
+        dbc.ModalFooter(
+            dbc.Button([
+                'Enviar',
+                html.I(className='fas fa-times-circle')
+            ],
+                id='send-modal-questions',
+                className='m-auto btn btn-success'
+            )
+        ),
+    ],
+    id = 'modal-questions',
+    centered = True,
+    autoFocus = True
+)
 
 
-@app_filter.callback(
+@app.callback(
     [
     Output(
         component_id='mapP1',
@@ -172,6 +246,19 @@ def setGraphsFilter(tabs1, tabs2, sector, municipio, giro, block_sec, block_giro
     return map1, map2, bars, dis_sector, dis_municipio, dis_giro, options_municipio, options_giro
 
 
+@app.callback(
+    Output('modal-questions', 'is_open'),
+    [
+        Input('newdata', 'n_clicks'),
+        Input('send-modal-questions', 'n_clicks')
+    ],
+    [State('modal-questions', 'is_open')],
+)
+def toggle_modal_barchart(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+
+    return is_open
 
 
 

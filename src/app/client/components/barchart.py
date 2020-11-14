@@ -142,6 +142,8 @@ modal_barchart = dbc.Modal(
 )
 def update_graph(option_map, figura_slct, figura_tabs):
     # Visualizations
+    if option_map == 'Filtros':
+        return {}
     if option_map == 'Precios':
         fig = dif_prices(predicciones, groups[int(figura_slct)])
     else:
@@ -174,6 +176,8 @@ def update_graph(option_map, figura_slct, figura_tabs):
 )
 def update_graph(option_map):
     # Visualizations
+    if option_map == 'Filtros':
+        return None, None, None
     if option_map == 'Precios':
         return 'd-block btn btn-outline-primary bg-primary text-white float-left mr-auto', 'd-block float-right ml-auto w-25', 'd-none'
 

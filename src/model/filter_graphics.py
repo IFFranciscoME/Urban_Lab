@@ -5,6 +5,7 @@ import geojson
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as po
+import seaborn as sns
 from collections import Counter
 
 import dash_core_components as dcc
@@ -14,6 +15,18 @@ df_c = data_c.filter(items = ['Sector', 'Municipio', 'Giro','ventas_porcentaje',
                          'despidos', 'credito', 'credito_solicitud', 'aumento_insumos',
                           'aumento_precios'])
 
+
+def pie_chart(result, names, tittle, palette):
+    pull_list = [0]*len(result)  ##
+    pull_list[result.index(max(result))] = 0.3 ##
+    fig = po.Figure(data = [po.Pie(labels = names, values = result,title = tittle, hole=.4, pull=pull_list)]) ##
+    colors = sns.color_palette(palette, len(result)).as_hex() ##
+    fig.update_traces(textfont_size=13,marker=dict(colors=colors, line=dict(color='#FFFFFF', width=3))) ##
+    fig.update_layout(
+        autosize=False,
+        width=850,
+        height=500, font_size= 16) ##
+    return fig ##
 
 def optionslct(data, sector): #data = 'Giro'
     if sector == None:
@@ -134,10 +147,8 @@ def despidosGraphic(sector, municipio, giro):
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
 
-    fig = po.Figure(data=[po.Pie(labels=names, values=result, hole=.4)])
-    colors = ['#FAEBD7', '#CDC0B0', '#FFE4C4', '#8B7D6B', '#DEB887']
-    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
-    fig.update_layout(title_text="Porcentaje de empresas que han despedido personal", font=dict(size=10))
+    fig = pie_chart(result, names, 'Despidos', 'PuBu')
+    fig.update_layout(title_text="Porcentaje de empresas que han despedido personal", font=dict(size=12))
 
     return fig
 
@@ -186,14 +197,12 @@ def creditoGraphic(sector, municipio, giro):
             cons += 1
         if df['credito_solicitud'][i] == 'Ya lo hice':
             ya += 1
+    result = [si, no, cons, ya]
+    names = ['Sí', 'No', 'Lo estoy considerando', 'Ya lo hice']
 
-    fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'Lo estoy considerando', 'Ya lo hice'],
-                                 values=[si, no, cons, ya],
-                                 hole=.4)])
-    colors = ['#8FBC8F', '#228B22', '#C1FFC1', '#698B69']
-    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
-    fig.update_layout(title_text="Porcentaje de empresas que tomarían algún tipo de crédito para tener mayor liquidez", font=dict(size=10))
-    return fig   
+    fig = pie_chart(result, names, 'Solicitud', 'BuGn')
+    fig.update_layout(title_text="Porcentaje de empresas que tomarían algún tipo de crédito para tener mayor liquidez", font=dict(size=12))
+    return fig
 
 def insumosGraphic(sector, municipio, giro):
     df = filterdf(sector, municipio, giro) # codigo que filtra --- este es para las graficas
@@ -234,13 +243,10 @@ def insumosGraphic(sector, municipio, giro):
     if df.empty:
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
-
-    fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'No sé'],
-                                 values=[si, no, nose],
-                                 hole=.4)])
-    colors = ['#8B7500', '#DAA520', '#FFEC8B']
-    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
-    fig.update_layout(title_text="Porcentaje de empresas que han observado aumentos en los costos de su operación", font=dict(size=10))
+    result = [si, no, nose]
+    names = ['Sí', 'No', 'No sé']
+    fig = pie_chart(result, names, 'Aumento Insumos', 'Greens')
+    fig.update_layout(title_text="Porcentaje de empresas que han observado aumentos en los costos de su operación", font=dict(size=12))
     return fig       
 
 def preciosGraphic(sector, municipio, giro):
@@ -288,13 +294,11 @@ def preciosGraphic(sector, municipio, giro):
     if df.empty:
         fig = px.pie(values=0, names="No hay datos", hole=0.4, title='No hay datos');
         return fig
+    result = [si, no, na, nc, cons]
+    names = ['Sí', 'No', 'No aplica', 'No contestó', 'No, pero lo está considerando']
 
-    fig = po.Figure(data=[po.Pie(labels=['Sí', 'No', 'No aplica', 'No contestó', 'No, pero lo está considerando'],
-                                 values=[si, no, na, nc, cons],
-                                 hole=.4)])
-    colors = ['#FFA07A', '#FFB6C1', '#FA8072', 'cadetblue', '#E9967A']
-    fig.update_traces(marker=dict(colors=colors, line=dict(color='#000000', width=2)))
-    fig.update_layout(title_text="Porcentaje de empresas que han tenido que subir precios para compensar mayores costos", font=dict(size=10))
+    fig = pie_chart(result, names, 'Aumento Precios', 'PuRd')
+    fig.update_layout(title_text="Porcentaje de empresas que han tenido que subir precios para compensar mayores costos", font=dict(size=12))
     return fig     
 
 def porcentajeGraphic(sector, municipio, giro):
@@ -340,6 +344,9 @@ def porcentajeGraphic(sector, municipio, giro):
 
     fig = po.Figure([po.Bar(x=labels, y=values, marker_color='rgb(55, 83, 109)')])
     fig.update_layout(title_text='Porcentaje de reducción de ventas', xaxis=dict(title='Porcentaje de reducción'),
-                      yaxis=dict(title='Cantidad de empresas'))
-    fig.update_layout(font=dict(size=10))
+                      yaxis=dict(title='Cantidad de empresas'),
+                      paper_bgcolor='rgba(0,0,0,0)',
+                      plot_bgcolor='rgba(0,0,0,0)'
+                      )
+    fig.update_layout(font=dict(size=12))
     return fig     

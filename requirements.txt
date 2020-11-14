@@ -11,3 +11,4 @@ xlrd
 statistics
 sklearn
 statsmodels
+seaborn

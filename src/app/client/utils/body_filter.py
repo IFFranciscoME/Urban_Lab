@@ -7,7 +7,6 @@ from app.client.components.graphics1 import tabs_barchart1, tabs_barchart2, map_
 #from model.filter_graphics import test
 
 
-
 body_filter = html.Div([
     html.Div([
         html.Div([
