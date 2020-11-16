@@ -15,7 +15,7 @@ from app.client.components.bodyselect import changebody
 layout = html.Div([ 
     header,
     html.Div(
-        id = "select-body"),
+        id = "select-body", children={}),
     footer
 ], className='d-flex flex-column align-items-start')
 

@@ -8,6 +8,7 @@ from dash.dependencies import Input, Output, State
 from app.client.utils.body import body
 from app.client.utils.body_filter import body_filter
 
+
 @app.callback(
     Output(
         component_id='select-body',

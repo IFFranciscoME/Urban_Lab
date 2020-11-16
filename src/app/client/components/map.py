@@ -52,8 +52,7 @@ map_graph = dcc.Graph(id='map', figure={}, className='pb-3 pr-3 pl-3 mt-auto mb-
 def update_graph_bar(option_map):
     # container = 'La variable escogida por el usuario es: {}'.format(option_map)
     if option_map == 'Filtros':
-        fig = {}
-        return None, None, fig
+        return {}, {}, {}
     if option_map == 'Precios':
         fig = table_prices(semaforo)
     else:

@@ -40,7 +40,7 @@ app.title = config.name
 
 app.layout = layout
 
-app.config['suppress_callback_exceptions']=True
+
 
 app_form.title = config.name
 
