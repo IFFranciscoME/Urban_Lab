@@ -162,9 +162,6 @@ def setGraphsFilter(tabs1, tabs2, sector, municipio, giro, block_sec, block_giro
 
 
 
-
-
-
     map1 = mapoptions1[tabs1](sector, municipio, giro)
     map2 = mapoptions2[tabs2](sector, municipio, giro)
     bars = porcentajeGraphic(sector, municipio, giro)

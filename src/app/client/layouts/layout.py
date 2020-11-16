@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 
 from app.client.utils.header import header
 from app.client.utils.body import body
+from app.client.utils.body_filter import body_filter
 from app.client.utils.footer import footer
 from app.client.utils.header_filter import header_filter
 

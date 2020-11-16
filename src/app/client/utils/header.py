@@ -27,7 +27,7 @@ header = html.Header(
                                     dbc.ModalHeader(
                                         children=[
                                             html.H3("Bienvenido a la herramienta de levantamiento de datos"),
-                                            html.H5("Apoyanos contestando las siguientes preguntas, con el fin de agregar información a nuestra bas de datos")
+                                            html.H5("Apoyanos contestando las siguientes preguntas, con el fin de agregar información a nuestra base de datos")
                                         ],
                                         className='text-center text-justify'
                                     ),
@@ -35,7 +35,7 @@ header = html.Header(
                                         children=[
                                             dbc.Form([
                                             dbc.FormGroup([
-                                                dbc.Label("Seleccione el sector en el que opera su empresa:"),
+                                                dbc.Label("Seleccione el sector en el que opera su empresa:", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
                                                         {'label': 'Manufactura', 'value': 'Manufactura'},
@@ -47,7 +47,7 @@ header = html.Header(
                                                         ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("¿Cuál ha sido el comportamiento de sus ventas del trimestre actual respecto al anterior?"),
+                                                dbc.Label("¿Cuál ha sido el comportamiento de sus ventas del trimestre actual respecto al anterior?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
                                                         {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
@@ -58,7 +58,7 @@ header = html.Header(
                                                 ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("¿Cuál ha sido el comportamiento de sus  costos operativos?"),
+                                                dbc.Label("¿Cuál ha sido el comportamiento de sus  costos operativos?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
                                                         {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
@@ -69,7 +69,7 @@ header = html.Header(
                                                 ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("En el supuesto de no generar ventas en el futuro, ¿Cuántas semanas soportarían sus fondos para pagar todos sus gastos?"),
+                                                dbc.Label("En el supuesto de no generar ventas en el futuro, ¿Cuántas semanas soportarían sus fondos para pagar todos sus gastos?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
                                                         {'label': '0 a 6 semanas', 'value': '1'},
@@ -81,7 +81,7 @@ header = html.Header(
                                                 ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("Indique el porcentaje aproximado de aumento o reducción en ventas del trimestre actual respecto al anterior:"),
+                                                dbc.Label("Indique el porcentaje aproximado de aumento o reducción en ventas del trimestre actual respecto al anterior:", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                 dcc.Slider(min=0, max=100, step=10, value=100,
                                                            marks={
@@ -106,14 +106,15 @@ header = html.Header(
                                         ])
 
                                             ],
-                                        className='text-center text-justify'
+                                        className='text-left text-justify'
                                     ),
                                     dbc.ModalFooter(
                                         dbc.Button([
                                             'Enviar'
                                         ],
                                             id={"index": 1, "role": "close"},
-                                            className='m-auto btn btn-success'
+                                            color="primary",
+                                            className='m-auto btn'
                                         )
                                     ),
                                 ],

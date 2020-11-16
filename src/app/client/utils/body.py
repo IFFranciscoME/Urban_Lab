@@ -17,9 +17,9 @@ body = html.Div([
                     className='card h-100 ',
                     style={'backgroundColor': '#F9F9F9'})
                 ],
-            className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-3',
+            className='col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 mt-3',
         )
-    ], className='row'),
+    ], className='row justify-content-md-center'),
     html.Div([
         html.Div([
                 dbc.Card(
@@ -56,4 +56,4 @@ body = html.Div([
         ], className='col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  mt-3 mb-3')
     ], className='row'),
     modal_barchart
-], className='container-fluid mb-auto', style={'backgroundColor': '#F2F2F2'})
+], id="body_o", className='container-fluid mb-auto', style={'backgroundColor': '#F2F2F2'})

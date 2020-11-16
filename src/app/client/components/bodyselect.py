@@ -22,5 +22,7 @@ from app.client.utils.body_filter import body_filter
 
 def changebody(slct):
     if slct == 'Filtros':
-        return body_filter
-    return body
+        lay = html.Div(children=[body_filter])
+        return lay
+    lay = html.Div(children=[body])
+    return lay
