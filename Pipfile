@@ -19,6 +19,7 @@ statistics = "*"
 sklearn = "*"
 statsmodels = "*"
 seaborn = "*"
+cython = "*"
 
 [requires]
 python_version = "3.7"
