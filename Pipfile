@@ -1,3 +1,4 @@
+
 [[source]]
 name = "pypi"
 url = "https://pypi.org/simple"
@@ -19,8 +20,6 @@ statistics = "*"
 sklearn = "*"
 statsmodels = "*"
 seaborn = "*"
-cython = "*"
-pyproj = "*"
 
 [requires]
 python_version = "3.7"
