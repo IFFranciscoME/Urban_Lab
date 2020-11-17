@@ -24,6 +24,7 @@ plotly = "~=4.11.0"
 Flask = "~=1.1.2"
 pyproj = "*"
 cython = "*"
+setuptools = "*"
 
 [requires]
 python_version = "3.7"
