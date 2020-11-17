@@ -15,3 +15,5 @@ seaborn~=0.11.0
 Flask~=1.1.2
 scikit-learn~=0.23.2
 plotly~=4.11.0
+pyproj
+cython
