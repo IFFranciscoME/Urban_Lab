@@ -43,8 +43,14 @@ tabs_barchart2 = dcc.Tabs(id='tabs_fig2', value='0', children=[
 map_graphP1 = dcc.Graph(id='mapP1', figure={}, className='mt-auto mb-auto')
 map_graphP2 = dcc.Graph(id='mapP2', figure={}, className='mt-auto mb-auto')
 map_graphBars = dcc.Graph(id='mapBar', figure={}, className='mt-auto mb-auto')
+button_desc=dbc.Button("Descripción", id="open", style={"width": "150px", 'background': '#317CF6'})
 
 
+modal1 = dbc.Modal([
+    dbc.ModalHeader("Descripción"),
+    dbc.ModalBody("Esta gráfica muestra el porcentaje de reducción de ventas contra la cantidad de empresas que han reportado dicha disminución. En el eje vertical representa la cantidad de empresas y el eje horizontal el porcentaje que han visto reducido en ventas."),
+    dbc.ModalFooter(dbc.Button("Cerrar", id="close", color="secondary")),
+], id="modal")
 
 
 @app.callback(
@@ -171,7 +177,15 @@ def setGraphsFilter(tabs1, tabs2, sector, municipio, giro, block_sec, block_giro
     return map1, map2, bars, dis_sector, dis_municipio, dis_giro, options_municipio, options_giro
 
 
-
+@app.callback(
+    Output("modal", "is_open"),
+    [Input("open", "n_clicks"), Input("close", "n_clicks")],
+    [State("modal", "is_open")],
+)
+def toggle_modal1(n1, n2, is_open):
+    if n1 or n2:
+        return not is_open
+    return is_open
 
 
 

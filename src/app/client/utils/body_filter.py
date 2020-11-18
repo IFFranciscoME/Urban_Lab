@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from app.client.components.graphics1 import tabs_barchart1, tabs_barchart2, map_graphP1, map_graphP2, map_graphBars
+from app.client.components.graphics1 import tabs_barchart1, tabs_barchart2, map_graphP1, map_graphP2, map_graphBars, button_desc, modal1
 
 #from model.filter_graphics import test
 
@@ -121,12 +121,14 @@ body_filter = html.Div([
     html.Div([
         html.Div([
             dbc.Card([
+                button_desc,
+                modal1,
                 map_graphBars
             ],
                 body=True,
                 className='card h-100',
                 style={'backgroundColor': '#F9F9F9'})
-        ], className='col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6  mt-3'),
+        ], className='col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-3'),
         html.Div([
             dbc.Card([
                 html.Div([

@@ -33,6 +33,7 @@ header = html.Header(
                                     ),
                                     dbc.ModalBody(
                                         children=[
+                                            html.Div([
                                             dbc.Form([
                                             dbc.FormGroup([
                                                 dbc.Label("Seleccione el sector en el que opera su empresa:", style={'marginBottom': '25px'}),
@@ -98,30 +99,40 @@ header = html.Header(
                                                                 100: {'label': '100%'},
 
                                                              }
-                                                           )
-
-
+                                                           ),
+                                                ],
+                                            className='text-left text-justify'),
+                                                html.Br(),
+                                                html.Div([
+                                                html.Div(
+                                                dbc.Button("Enviar", id="submitanswers", color="primary")
+                                                ),
+                                                html.Div(
+                                                dbc.Label(id="success", style={"color": "green", "marginTop": "15px"})
+                                                )
+                                                ], className='text-center text-justify')
                                             ]
                                             )
                                         ])
 
-                                            ],
-                                        className='text-left text-justify'
+                                            ]
+
                                     ),
                                     dbc.ModalFooter(
                                         dbc.Button([
-                                            'Enviar'
+                                            'Cancelar'
                                         ],
-                                            id={"index": 1, "role": "close"},
-                                            color="primary",
+                                            {"index": 1, "role": "close"},
+                                            color="secondary",
                                             className='m-auto btn'
                                         )
                                     ),
                                 ],
-                                id = {"index": 1, "role": "modal"},
+                                {"index": 1, "role": "modal"},
                                 centered = True,
                                 autoFocus = True,
                                 scrollable=True,
+                                size="lg",
                                 backdrop="static"
 
                             ))
@@ -168,7 +179,7 @@ header = html.Header(
     Output({'index': MATCH, 'role': 'modal'}, 'is_open'),
     [
         Input({'index': MATCH, 'role': 'open'}, 'n_clicks'),
-        Input({'index': MATCH, 'role': 'close'}, 'n_clicks')
+        Input({'index': MATCH, 'role': 'close'}, 'n_clicks'),
     ],
     [State({'index': MATCH, 'role': 'modal'}, 'is_open')],
 )
@@ -177,3 +188,17 @@ def toggle_modal_barchart(n1, n2, is_open):
     if n1 or n2:
         return not is_open
     return is_open
+
+@app.callback(
+    Output(
+        component_id="success",
+        component_property="children"),
+    Input(
+        component_id="submitanswers",
+        component_property="n_clicks"
+    )
+)
+
+def subitbutton(submit):
+    if submit:
+        return "Gracias por aportar!"
