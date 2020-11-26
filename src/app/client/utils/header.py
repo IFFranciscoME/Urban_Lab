@@ -21,13 +21,13 @@ header = html.Header(
                             html.H2(
                                 name,
                                 className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block text-center text-justify'),
-                            dbc.Button("Levantar Datos", {"index": 1, "role": "open"}, className="mr-1", style={'background': '#317CF6', 'height': 40, 'margin-top': 10}),
+                            dbc.Button("Levantar Datos", id="open", className="mr-1", style={'background': '#317CF6', 'height': 40, 'margin-top': 10}),
                             html.Div(dbc.Modal(
                                     [
                                     dbc.ModalHeader(
                                         children=[
                                             html.H3("Bienvenido a la herramienta de levantamiento de datos"),
-                                            html.H5("Apoyanos contestando las siguientes preguntas, con el fin de agregar información a nuestra base de datos")
+                                            html.H5("Apoyanos contestando las siguientes preguntas, con el fin de agregar información a la base de datos colectiva y pública")
                                         ],
                                         className='text-center text-justify'
                                     ),
@@ -43,7 +43,7 @@ header = html.Header(
                                                         {'label': 'Comercio', 'value': 'Comercio'},
                                                         {'label': 'Servicio', 'value': 'Servicio'},
                                                         {'label': 'Construcción', 'value': 'Construcción'},
-                                                    ]
+                                                    ], id ="q1"
                                                     ),
                                                         ]),
                                                 html.Br(),
@@ -54,7 +54,7 @@ header = html.Header(
                                                         {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
                                                         {'label': 'Se han reducido', 'value': 'Se han reducido'},
                                                         {'label': 'Se han aumentado', 'value': 'Se han aumentado'}
-                                                    ]
+                                                    ], id="q2"
                                                     ),
                                                 ]),
                                                 html.Br(),
@@ -65,7 +65,7 @@ header = html.Header(
                                                         {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
                                                         {'label': 'Se han reducido', 'value': 'Se han reducido'},
                                                         {'label': 'Se han aumentado', 'value': 'Se han aumentado'}
-                                                    ],
+                                                    ], id="q3"
                                                     ),
                                                 ]),
                                                 html.Br(),
@@ -77,7 +77,7 @@ header = html.Header(
                                                         {'label': '6 a 12 semanas', 'value': '2'},
                                                         {'label': '12 a 18 semanas', 'value': '3'},
                                                         {'label': '18 a 24 semanas o más', 'value': '4'}
-                                                    ],
+                                                    ], id="q4"
                                                     ),
                                                 ]),
                                                 html.Br(),
@@ -98,20 +98,20 @@ header = html.Header(
                                                                 90: {'label': '90%'},
                                                                 100: {'label': '100%'},
 
-                                                             }
+                                                             }, id="q5"
                                                            ),
                                                 ],
                                             className='text-left text-justify'),
                                                 html.Br(),
                                                 html.Div([
                                                 html.Div(
-                                                dbc.Button("Enviar", id="submitanswers", color="primary")
+
                                                 ),
                                                 html.Div(
                                                 dbc.Label(id="success", style={"color": "green", "marginTop": "15px"})
                                                 )
                                                 ], className='text-center text-justify')
-                                            ]
+                                            ], prevent_default_on_submit= True
                                             )
                                         ])
 
@@ -119,21 +119,21 @@ header = html.Header(
 
                                     ),
                                     dbc.ModalFooter(
-                                        dbc.Button([
-                                            'Cancelar'
-                                        ],
-                                            {"index": 1, "role": "close"},
-                                            color="secondary",
-                                            className='m-auto btn'
-                                        )
+                                        html.Div([
+                                       dbc.Button([
+                                           'Enviar'],
+                                            id="close",
+                                            color="primary",
+                                            className='ml-auto'
+
+                                       )], className="text-center")
                                     ),
                                 ],
-                                {"index": 1, "role": "modal"},
+                                id="modal1",
                                 centered = True,
                                 autoFocus = True,
                                 scrollable=True,
-                                size="lg",
-                                backdrop="static"
+                                size="lg"
 
                             ))
                         ],
@@ -176,29 +176,28 @@ header = html.Header(
 
 
 @app.callback(
-    Output({'index': MATCH, 'role': 'modal'}, 'is_open'),
-    [
-        Input({'index': MATCH, 'role': 'open'}, 'n_clicks'),
-        Input({'index': MATCH, 'role': 'close'}, 'n_clicks'),
-    ],
-    [State({'index': MATCH, 'role': 'modal'}, 'is_open')],
+    Output("modal1", "is_open"),
+    [Input("open", "n_clicks"),
+     Input("close", "n_clicks")],
+    [State("modal1", "is_open")],
 )
-def toggle_modal_barchart(n1, n2, is_open):
-
-    if n1 or n2:
+def toggle_modal_form(n1, n2, is_open):
+    if n1 or n2 :
         return not is_open
     return is_open
 
-@app.callback(
-    Output(
-        component_id="success",
-        component_property="children"),
-    Input(
-        component_id="submitanswers",
-        component_property="n_clicks"
-    )
-)
 
-def subitbutton(submit):
-    if submit:
-        return "Gracias por aportar!"
+@app.callback(
+    Output("close", "disabled"),
+    [
+    Input("q1", "value"),
+    Input("q2", "value"),
+    Input("q3", "value"),
+    Input("q4", "value")
+    ]
+)
+def block_button(q1, q2, q3, q4):
+    if q1 == None or q2 == None or q3 == None or q4 == None:
+        return True
+    else:
+        return False

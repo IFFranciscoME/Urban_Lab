@@ -1,7 +1,7 @@
 import os
 
 ## App settings
-name = 'Urban Lab: Datos de ZMG'
+name = 'Urban Lab'
 
 host ='0.0.0.0'
 
