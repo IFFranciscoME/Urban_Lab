@@ -21,7 +21,7 @@ header = html.Header(
                             html.H2(
                                 name,
                                 className='m-auto text-primary font-weight-bold d-none d-md-block d-lg-block d-xl-block text-center text-justify'),
-                            dbc.Button("Levantar Datos", id="open", className="mr-1", style={'background': '#317CF6', 'height': 40, 'margin-top': 10}),
+                            dbc.Button("Levantar Datos", {"index": 1, "role": "open"}, className="mr-1", style={'background': '#317CF6', 'height': 40, 'margin-top': 10}),
                             html.Div(dbc.Modal(
                                     [
                                     dbc.ModalHeader(
@@ -36,72 +36,106 @@ header = html.Header(
                                             html.Div([
                                             dbc.Form([
                                             dbc.FormGroup([
-                                                dbc.Label("Seleccione el sector en el que opera su empresa:", style={'marginBottom': '25px'}),
+                                                dbc.Label("En caso de requerirse, ¿Tiene la capacidad de trabajar desde casa?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
-                                                        {'label': 'Manufactura', 'value': 'Manufactura'},
-                                                        {'label': 'Comercio', 'value': 'Comercio'},
-                                                        {'label': 'Servicio', 'value': 'Servicio'},
-                                                        {'label': 'Construcción', 'value': 'Construcción'},
+                                                        {'label': 'Si', 'value': 'Si'},
+                                                        {'label': 'Si pero no me convence', 'value': 'Si pero no me convence'},
+                                                        {'label': 'No tengo la capacidad', 'value': 'No tengo la capacidad'},
+                                                        {'label': 'No lo necesito, el negocio no lo requiere', 'value': 'No lo necesito, el negocio no lo requiere'},
                                                     ], id ="q1"
                                                     ),
                                                         ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("¿Cuál ha sido el comportamiento de sus ventas del trimestre actual respecto al anterior?", style={'marginBottom': '25px'}),
+                                                dbc.Label("¿Ha observado aumentos en los costos de su operación?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
-                                                        {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
-                                                        {'label': 'Se han reducido', 'value': 'Se han reducido'},
-                                                        {'label': 'Se han aumentado', 'value': 'Se han aumentado'}
+                                                        {'label': 'Si', 'value': 'Si'},
+                                                        {'label': 'No', 'value': 'No'}
                                                     ], id="q2"
                                                     ),
                                                 ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("¿Cuál ha sido el comportamiento de sus  costos operativos?", style={'marginBottom': '25px'}),
+                                                dbc.Label("¿Cuál considera que sería la principal razón para cerrar su establecimiento?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
-                                                        {'label': 'Se mantuvieron igual', 'value': 'Se mantuvieron igual'},
-                                                        {'label': 'Se han reducido', 'value': 'Se han reducido'},
-                                                        {'label': 'Se han aumentado', 'value': 'Se han aumentado'}
+                                                        {'label': 'Falta de fondos', 'value': 'Falta de fondos'},
+                                                        {'label': 'Aumento de gastos', 'value': 'Aumento de gastos'},
+                                                        {'label': 'Problemas de cobranza', 'value': 'Problemas de cobranza'},
+                                                        {'label': 'Factores externos', 'value': 'Factores externos'},
+                                                        {'label': 'Incertidumbre sobre las ventas', 'value': 'Incertidumbre sobre las ventas'},
+                                                        {'label': 'Otro', 'value': 'Otro'}
                                                     ], id="q3"
                                                     ),
                                                 ]),
                                                 html.Br(),
                                             dbc.FormGroup([
-                                                dbc.Label("En el supuesto de no generar ventas en el futuro, ¿Cuántas semanas soportarían sus fondos para pagar todos sus gastos?", style={'marginBottom': '25px'}),
+                                                dbc.Label("¿Su establecimiento tiene la capacidad de pagar salarios si se mantiene cerrada o con trabajo desde casa?", style={'marginBottom': '25px'}),
                                                 html.Br(),
                                                     dcc.Dropdown(options=[
-                                                        {'label': '0 a 6 semanas', 'value': '1'},
-                                                        {'label': '6 a 12 semanas', 'value': '2'},
-                                                        {'label': '12 a 18 semanas', 'value': '3'},
-                                                        {'label': '18 a 24 semanas o más', 'value': '4'}
+                                                        {'label': 'Si, máximo 1 mes', 'value': '1'},
+                                                        {'label': 'Si, máximo 2 meses', 'value': '2'},
+                                                        {'label': 'Si, máximo 3 meses', 'value': '3'},
+                                                        {'label': 'Si, más de 3 mes', 'value': '4'},
+                                                        {'label': 'No', 'value': 'No'}
                                                     ], id="q4"
                                                     ),
                                                 ]),
                                                 html.Br(),
-                                            dbc.FormGroup([
-                                                dbc.Label("Indique el porcentaje aproximado de aumento o reducción en ventas del trimestre actual respecto al anterior:", style={'marginBottom': '25px'}),
-                                                html.Br(),
-                                                dcc.Slider(min=0, max=100, step=10, value=100,
-                                                           marks={
-                                                                0: {'label': '0%'},
-                                                                10: {'label': '10%'},
-                                                                20: {'label': '20%'},
-                                                                30: {'label': '30%'},
-                                                                40: {'label': '40%'},
-                                                                50: {'label': '50%'},
-                                                                60: {'label': '60%'},
-                                                                70: {'label': '70%'},
-                                                                80: {'label': '80%'},
-                                                                90: {'label': '90%'},
-                                                                100: {'label': '100%'},
-
-                                                             }, id="q5"
-                                                           ),
-                                                ],
-                                            className='text-left text-justify'),
+                                                dbc.FormGroup([
+                                                    dbc.Label("¿Tomaría algún tipo de crédito para tener mayor liquidez?",
+                                                              style={'marginBottom': '25px'}),
+                                                    html.Br(),
+                                                    dcc.Dropdown(options=[
+                                                        {'label': 'Si', 'value': 'Si'},
+                                                        {'label': 'No', 'value': 'No'}
+                                                    ], id="q5"
+                                                    ),
+                                                ]),
+                                                dbc.FormGroup([
+                                                    dbc.Label(
+                                                        "¿Ha tenido que subir precios para compensar mayores costos?",
+                                                        style={'marginBottom': '25px'}),
+                                                    html.Br(),
+                                                    dcc.Dropdown(options=[
+                                                        {'label': 'Si', 'value': 'Si'},
+                                                        {'label': 'No', 'value': 'No'}
+                                                    ], id="q6"
+                                                    ),
+                                                ]),
+                                                dbc.FormGroup([
+                                                    dbc.Label(
+                                                        "¿Su establecimiento se ha visto en la necesidad de despedir personal?",
+                                                        style={'marginBottom': '25px'}),
+                                                    html.Br(),
+                                                    dcc.Dropdown(options=[
+                                                        {'label': 'No', 'value': 'No'},
+                                                        {'label': 'Si', 'value': 'Si'},
+                                                        {'label': 'No cuenta con personal', 'value': 'No cuenta con personal'},
+                                                        {'label': 'No, pero lo esta considerando', 'value': 'No, pero lo esta considerando'},
+                                                        {'label': 'No, pero se hará en los proximos días', 'value': 'No, pero se hará en los proximos días'}
+                                                    ], id="q7"
+                                                    ),
+                                                ]),
+                                                dbc.FormGroup([
+                                                    dbc.Label(
+                                                        "¿En qué porcentaje aproximadamente vio reducidas sus ventas?",
+                                                        style={'marginBottom': '25px'}),
+                                                    html.Br(),
+                                                    dcc.Dropdown(options=[
+                                                        {'label': 'No se tienen pérdidas', 'value': 'No se tienen pérdidas'},
+                                                        {'label': 'Menos del 25%', 'value': 'Menos del 25%'},
+                                                        {'label': 'Entre 25% y 50%',
+                                                         'value': 'Entre 25% y 50%'},
+                                                        {'label': 'Entre 50% y 75%',
+                                                         'value': 'Entre 50% y 75%'},
+                                                        {'label': 'Mas de 75%',
+                                                         'value': 'Mas de 75%'}
+                                                    ], id="q8"
+                                                    ),
+                                                ]),
                                                 html.Br(),
                                                 html.Div([
                                                 html.Div(
@@ -122,14 +156,14 @@ header = html.Header(
                                         html.Div([
                                        dbc.Button([
                                            'Enviar'],
-                                            id="close",
+                                            id={"index": 1, "role": "close"},
                                             color="primary",
                                             className='ml-auto'
 
                                        )], className="text-center")
                                     ),
                                 ],
-                                id="modal1",
+                                id={"index": 1, "role": "modal"},
                                 centered = True,
                                 autoFocus = True,
                                 scrollable=True,
@@ -176,10 +210,10 @@ header = html.Header(
 
 
 @app.callback(
-    Output("modal1", "is_open"),
-    [Input("open", "n_clicks"),
-     Input("close", "n_clicks")],
-    [State("modal1", "is_open")],
+    Output({'index': MATCH, 'role': 'modal'}, "is_open"),
+    [Input({'index': MATCH, 'role': 'open'}, "n_clicks"),
+     Input({'index': MATCH, 'role': 'close'}, "n_clicks")],
+    [State({'index': MATCH, 'role': 'modal'}, "is_open")],
 )
 def toggle_modal_form(n1, n2, is_open):
     if n1 or n2 :
@@ -193,11 +227,15 @@ def toggle_modal_form(n1, n2, is_open):
     Input("q1", "value"),
     Input("q2", "value"),
     Input("q3", "value"),
-    Input("q4", "value")
+    Input("q4", "value"),
+    Input("q5", "value"),
+    Input("q6", "value"),
+    Input("q7", "value"),
+    Input("q8", "value")
     ]
 )
-def block_button(q1, q2, q3, q4):
-    if q1 == None or q2 == None or q3 == None or q4 == None:
+def block_button(q1, q2, q3, q4, q5, q6, q7, q8):
+    if q1 == None or q2 == None or q3 == None or q4 == None or q5 == None or q6 == None or q7 == None or q8 == None:
         return True
     else:
         return False
