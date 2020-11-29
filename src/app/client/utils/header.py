@@ -222,7 +222,7 @@ def toggle_modal_form(n1, n2, is_open):
 
 
 @app.callback(
-    Output("close", "disabled"),
+    Output({'index': MATCH, 'role': 'close'}, "disabled"),
     [
     Input("q1", "value"),
     Input("q2", "value"),
